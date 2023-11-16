@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+{%for m in message: %}
+ {%if m=="Вы не можете идти сюда!" %}<p class="failure"><br>{{m}}<br></p>
+{% elif m=="Привет!" %} <p>{{m}}</p>
+ {% else %} <p class="success">{{m}}</p>
+{% endif %}
+{% endfor %}
+<form action="" method="post">
+ {{form.csrf_token()}}
+ {% for field in form if field.name not in ["csrf_token","submit"] %}
+ {{field.label()}}
+ <br>
+ <br>
+ {{ field }}
+ <br>
+ <br>
+ {% for error in field.errors %}
+ {{error}}
+ {% endfor %}
+ {% endfor %}
+ {{form.submit}}
+</form>
+{% endblock %}
